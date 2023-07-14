@@ -6,6 +6,10 @@ class gaapDB:
     def __init__(self, data):
         self.data = data
 
+    def int64(self, data) -> numpy.int64:
+        splits = data.split(".")
+        return numpy.int64(splits[0])
+
     def revenue(self):
         if USGAAP_REVENUE1 in self.data:
             return self.data[USGAAP_REVENUE1]
@@ -25,13 +29,13 @@ class gaapDB:
     def debt(self, current=False):
         total = 0
         if current and USGAAP_SHORTDEBT in self.data:
-            return str(numpy.int64(self.data[USGAAP_SHORTDEBT]))
+            return str(self.int64(self.data[USGAAP_SHORTDEBT]))
         if USGAAP_LONGDEBT in self.data:
-            total = total + numpy.int64(self.data[USGAAP_LONGDEBT])
+            total = total + self.int64(self.data[USGAAP_LONGDEBT])
         if USGAAP_SHORTDEBT in self.data:
-            total = total + numpy.int64(self.data[USGAAP_SHORTDEBT])
+            total = total + self.int64(self.data[USGAAP_SHORTDEBT])
         if USGAAP_LONGLEASE in self.data:
-            total = total + numpy.int64(self.data[USGAAP_LONGLEASE])
+            total = total + self.int64(self.data[USGAAP_LONGLEASE])
         return str(total)
 
     def op_income(self):
@@ -46,8 +50,8 @@ class gaapDB:
 
     def current_ratio(self):
         if USGAAP_CURRENTASSETS in self.data and USGAAP_CURRENTLIABILITES in self.data:
-            ca = numpy.int64(self.data[USGAAP_CURRENTASSETS])
-            cl = numpy.int64(self.data[USGAAP_CURRENTLIABILITES])
+            ca = self.int64(self.data[USGAAP_CURRENTASSETS])
+            cl = self.int64(self.data[USGAAP_CURRENTLIABILITES])
             return str(round(ca / cl, 2))
         else:
             return "--"
@@ -55,18 +59,18 @@ class gaapDB:
     def cash(self):
         total = 0
         if USGAAP_CASH in self.data:
-            total = numpy.int64(self.data[USGAAP_CASH])
+            total = self.int64(self.data[USGAAP_CASH])
         if USGAAP_SECURITIES in self.data:
-            total = total + numpy.int64(self.data[USGAAP_SECURITIES])
+            total = total + self.int64(self.data[USGAAP_SECURITIES])
         return str(total)
 
     def intangibles(self):
         total = 0
         if USGAAP_GOODWILL in self.data or USGAAP_INTANGIBLE in self.data:
             if USGAAP_GOODWILL in self.data:
-                total = total + numpy.int64(self.data[USGAAP_GOODWILL])
+                total = total + self.int64(self.data[USGAAP_GOODWILL])
             if USGAAP_INTANGIBLE in self.data:
-                total = total + numpy.int64(self.data[USGAAP_INTANGIBLE])
+                total = total + self.int64(self.data[USGAAP_INTANGIBLE])
             return str(total)
         else:
             return "--"

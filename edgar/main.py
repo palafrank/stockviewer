@@ -14,10 +14,9 @@ else:
 if num_params > 2:
     # collect the years to filter
     years = []
-    for i in range(1, num_params):
-        print(sys.argv[i])
+    for i in range(2, num_params):
         years.append(sys.argv[i])
-print(years)
+print(ticker, years)
 xbrlFiles = fetch(ticker, years)
 df = fundamentals()
 for yy, doc in xbrlFiles.items():

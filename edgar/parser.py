@@ -71,7 +71,6 @@ class xbrlParser:
                     sys.exit(tag + " :no end-date/instant found while parsing context")
             else:
                 sys.exit(tag + " :no period found while parsing context", tag.name)
-        print("Selected contexts: ", self.contexts)
 
     def initParser(self):
         cells = self.soup.find_all(DEI_FILINGDATE)
@@ -95,7 +94,6 @@ class xbrlParser:
         self.doc = xbrlDoc
         self.soup = BeautifulSoup(self.doc, "xml")
         self.initParser()
-        print(self.filingDate)
         self.gaapTags()
 
 
