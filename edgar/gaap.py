@@ -1,4 +1,4 @@
-from tags import *
+from edgar.tags import *
 import numpy
 
 

@@ -1,8 +1,8 @@
 import requests
 import os
 from bs4 import BeautifulSoup
-from parser import xbrlParser
-from parser import getYYFromYYMMDD
+from edgar.parser import xbrlParser
+from edgar.parser import getYYFromYYMMDD
 
 BASE_URL = "https://www.sec.gov"
 

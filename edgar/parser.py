@@ -2,9 +2,9 @@ import requests
 import os
 import sys
 from bs4 import BeautifulSoup
-from gaap import gaapDB
-from report import fundamentals
-from tags import *
+from edgar.gaap import gaapDB
+from edgar.report import fundamentals
+from edgar.tags import *
 
 
 def getYYFromYYMMDD(date_str):

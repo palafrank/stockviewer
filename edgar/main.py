@@ -1,7 +1,7 @@
 import sys
 import warnings
-from fetcher import *
-from report import *
+from edgar.fetcher import *
+from edgar.report import *
 
 warnings.filterwarnings("ignore")
 num_params = len(sys.argv)
