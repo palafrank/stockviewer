@@ -18,7 +18,7 @@ if num_params > 2:
         years.append(sys.argv[i])
 print(ticker, years)
 xbrlFiles = fetch(ticker, years)
-df = fundamentals()
+df = fundamentals(ticker)
 for yy, doc in xbrlFiles.items():
     p = xbrlParser(doc)
     df.insert(p)

@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import yahoofinance
 
 
 class fundamentals:
@@ -20,10 +21,11 @@ class fundamentals:
         "Dividend",
     ]
 
-    def __init__(self):
+    def __init__(self, ticker):
         self.data = pd.DataFrame(
             columns=self.cols,
         )
+        self.price = yahoofinance.price(ticker)
 
     def insert(self, parser):
         self.data.loc[len(self.data)] = {
@@ -42,6 +44,10 @@ class fundamentals:
             self.cols[12]: parser.gaap.capex(),
             self.cols[13]: parser.gaap.dividend(),
         }
+    
+    def generateReport(self):
+        self.insights = dict()
+        
 
     def print(self):
         print(self.data)

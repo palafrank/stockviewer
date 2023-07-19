@@ -34,6 +34,9 @@ ROE = "returnOnEquity"
 TRAILING_PE = "trailingPE"
 FORWARD_PE = "forwardPE"
 
+# Stock Info
+PRICE = "currentPrice"
+
 
 class comparator:
     cols = [
@@ -58,6 +61,7 @@ class comparator:
         ROE,
         TRAILING_PE,
         FORWARD_PE,
+        PRICE
     ]
 
     def __init__(self, tickers):
