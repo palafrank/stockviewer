@@ -25,7 +25,7 @@ class fundamentals:
         self.data = pd.DataFrame(
             columns=self.cols,
         )
-        self.price = yahoofinance.price(ticker)
+        self.ticker_info = yahoofinance.ticker(ticker)
 
     def insert(self, parser):
         self.data.loc[len(self.data)] = {
@@ -50,4 +50,7 @@ class fundamentals:
         
 
     def print(self):
+        print("--- Filing Data ---")
         print(self.data)
+        print("--- Market Data ---")
+        print(self.ticker_info.print())

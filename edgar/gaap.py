@@ -63,10 +63,12 @@ class gaapDB:
 
     def cash(self):
         total = 0
-        if USGAAP_CASH in self.data:
-            total = self.data[USGAAP_CASH]
-        if USGAAP_SECURITIES in self.data:
-            total = total + self.data[USGAAP_SECURITIES]
+        for val in USGAAP_CASH:
+            if val in self.data:
+                total = total + self.data[val]
+        for val in USGAAP_SECURITIES:
+            if val in self.data:
+                total = total + self.data[val]
         return total
 
     def intangibles(self):
@@ -87,12 +89,10 @@ class gaapDB:
             return "--"
 
     def net_income(self):
-        if USGAAP_NETINCOME1 in self.data:
-            return self.data[USGAAP_NETINCOME1]
-        if USGAAP_NETINCOME2 in self.data:
-            return self.data[USGAAP_NETINCOME2]
-        else:
-            return "--"
+        for val in USGAAP_NETINCOME:
+            if val in self.data:
+                return self.data[val]
+        return "--"
 
     def operating_cf(self):
         if USGAAP_OPCASHFLOW1 in self.data:
