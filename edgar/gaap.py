@@ -26,10 +26,10 @@ class gaapDB:
             return "--"
 
     def equity(self):
-        if USGAAP_STOCKHOLDERSEQUITY in self.data:
-            return self.data[USGAAP_STOCKHOLDERSEQUITY]
-        else:
-            return "--"
+        for val in USGAAP_STOCKHOLDERSEQUITY:
+            if val in self.data:
+                return self.data[val]
+        return "--"
 
     def debt(self, current=False):
         total = 0
@@ -102,10 +102,9 @@ class gaapDB:
         return "--"
 
     def capex(self):
-        if USGAAP_CAPEX1 in self.data:
-            return self.data[USGAAP_CAPEX1]
-        if USGAAP_CAPEX2 in self.data:
-            return self.data[USGAAP_CAPEX2]
+        for val in USGAAP_CAPEX:
+            if val in self.data:
+                return self.data[val]
         return "--"
 
     def dividend(self):

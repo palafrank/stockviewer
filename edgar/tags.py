@@ -29,10 +29,17 @@ USGAAP_OPINCOME3 = "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesE
 USGAAP_COSTOFREV = "us-gaap:CostOfGoodsAndServicesSold".lower()
 
 # Balance Sheet
-USGAAP_STOCKHOLDERSEQUITY = "us-gaap:stockholdersequity".lower()
+USGAAP_STOCKHOLDERSEQUITY1 = "us-gaap:stockholdersequity".lower()
+USGAAP_STOCKHOLDERSEQUITY2 = "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest".lower()
+USGAAP_STOCKHOLDERSEQUITY = [
+    USGAAP_STOCKHOLDERSEQUITY1,
+    USGAAP_STOCKHOLDERSEQUITY2
+]
+
 USGAAP_LONGDEBT = "us-gaap:LongTermDebtNoncurrent".lower()
 USGAAP_LONGLEASE = "us-gaap:OperatingLeaseLiabilityNoncurrent".lower()
 USGAAP_SHORTDEBT = "us-gaap:DebtCurrent".lower()
+
 # Cash And Equivalents
 USGAAP_CASH1 = "us-gaap:CashAndCashEquivalentsAtCarryingValue".lower()
 USGAAP_CASH2 = "us-gaap:CashCashEquivalentsAndShortTermInvestments".lower()
@@ -60,5 +67,14 @@ USGAAP_OPCASHFLOW2 = (
 )
 USGAAP_DIVIDEND1 = "us-gaap:paymentsofdividendscommonstock".lower()
 USGAAP_DIVIDEND2 = "us-gaap:PaymentsOfDividends".lower()
+
+# Capex
 USGAAP_CAPEX1 = "us-gaap:PaymentsToAcquireProductiveAssets".lower()
 USGAAP_CAPEX2 = "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment".lower()
+USGAAP_CAPEX3 = "us-gaap:PaymentsToAcquireOtherProductiveAssets".lower()
+USGAAP_CAPEX = [
+    USGAAP_CAPEX1,
+    USGAAP_CAPEX2,
+    USGAAP_CAPEX3
+]
+

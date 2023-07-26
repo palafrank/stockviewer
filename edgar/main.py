@@ -2,6 +2,7 @@ import sys
 import warnings
 from edgar.fetcher import *
 from edgar.report import *
+from edgar.store import *
 
 warnings.filterwarnings("ignore")
 num_params = len(sys.argv)
@@ -21,5 +22,7 @@ xbrlFiles = fetch(ticker, years)
 df = fundamentals(ticker)
 for yy, doc in xbrlFiles.items():
     p = xbrlParser(doc)
-    df.insert(p)
+    df.insert(yy, p)
 df.print()
+save_to_csv(ticker, df.data)
+
