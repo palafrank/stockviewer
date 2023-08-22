@@ -9,4 +9,4 @@ for i in range(1, num_params):
     tickers.append(sys.argv[i])
 comp = comparator(tickers)
 # with pd.option_context("display.max_rows", None, "display.max_columns", None):
-print(comp.info())
+print(comp.info().to_string(index=False))

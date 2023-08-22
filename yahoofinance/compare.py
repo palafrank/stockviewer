@@ -40,7 +40,6 @@ PRICE = "currentPrice"
 
 class comparator:
     cols = [
-        TICKER,
         MARKETCAP,
         REVENUE,
         GROSS,
@@ -61,22 +60,27 @@ class comparator:
         ROE,
         TRAILING_PE,
         FORWARD_PE,
-        PRICE
+        PRICE,
     ]
 
     def __init__(self, tickers):
+        print("tickers: ", tickers.insert(0, "Metrics"))
         self.data = pd.DataFrame(
-            columns=self.cols,
+            columns=tickers,
         )
+        yinfo = dict()
         for ticker in tickers:
-            info = yf.Ticker(ticker)
-            loc = len(self.data)
-            for item in self.cols:
+            yinfo[ticker] = yf.Ticker(ticker)
+        for index in self.cols:
+            row = []
+            row.append(index)
+            for ticker in tickers:
                 try:
-                    self.data.at[loc, item] = info.info[item]
+                    num = yinfo[ticker].info[index]
+                    row.append("{:,.2f}".format(float(num)))
                 except:
-                    self.data.at[loc, item] = "--"
+                    pass
+            self.data.loc[len(self.data)] = row
 
     def info(self):
         return self.data
-
