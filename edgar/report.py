@@ -22,14 +22,60 @@ class fundamentals:
         "Dividend",
     ]
 
-    def __init__(self, ticker, df:pd.DataFrame = None):
+    def __init__(self, ticker, df: pd.DataFrame = None):
         if df is not None:
             self.data = df
         else:
-            self.data = pd.DataFrame(
-                columns=self.cols
-            )
+            self.data = pd.DataFrame(columns=self.cols)
         self.ticker_info = yahoofinance.ticker(ticker)
+
+    def format(self) -> pd.DataFrame:
+        sf = self.data.copy()
+        try:
+            sf.loc[:, "Revenue"] = sf["Revenue"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Operating Income"] = sf["Operating Income"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Interest"] = sf["Interest"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Net Income"] = sf["Net Income"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Equity"] = sf["Equity"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Cash"] = sf["Cash"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Debt"] = sf["Debt"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Current-Debt"] = sf["Current-Debt"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Intangibles"] = sf["Intangibles"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Capital Expense"] = sf["Capital Expense"].map("{:,d}".format)
+        except:
+            pass
+        try:
+            sf.loc[:, "Dividend"] = sf["Dividend"].map("{:,d}".format)
+        except:
+            pass
+        return sf
 
     def insert(self, yy, parser):
         self.data.loc[len(self.data)] = {
@@ -49,10 +95,9 @@ class fundamentals:
             self.cols[13]: parser.gaap.capex(),
             self.cols[14]: parser.gaap.dividend(),
         }
-    
+
     def generateReport(self):
         self.insights = dict()
-        
 
     def print(self):
         print("--- Filing Data ---")
