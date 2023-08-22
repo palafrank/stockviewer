@@ -101,6 +101,6 @@ class fundamentals:
 
     def print(self):
         print("--- Filing Data ---")
-        print(self.data)
+        print(self.format().T.to_string(header=False))
         print("--- Market Data ---")
         print(self.ticker_info.print())

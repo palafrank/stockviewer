@@ -4,3 +4,4 @@ tests/compare/__pycache__
 tests/edgar/__pycache__
 stockviewer.egg-info
 venv
+data
