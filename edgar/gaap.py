@@ -15,6 +15,12 @@ class gaapDB:
         splits = data.split(".")
         return numpy.int64(splits[0])
 
+    def normalize(self, data):
+        if data is None or data == "--":
+            return 0
+        else:
+            return data
+
     def revenue(self):
         if USGAAP_REVENUE1 in self.data:
             return self.data[USGAAP_REVENUE1]
@@ -31,17 +37,22 @@ class gaapDB:
                 return self.data[val]
         return "--"
 
-    def debt(self, current=False):
+    def current_debt(self):
+        for val in USGAAP_SHORTDEBT:
+            if val in self.data:
+                return self.data[val]
+        return "--"
+
+    def debt(self):
         total = 0
-        if current and USGAAP_SHORTDEBT in self.data:
-            return self.data[USGAAP_SHORTDEBT]
-        if USGAAP_LONGDEBT in self.data:
-            total = total + self.data[USGAAP_LONGDEBT]
-        if USGAAP_SHORTDEBT in self.data:
-            total = total + self.data[USGAAP_SHORTDEBT]
+        for val in USGAAP_LONGDEBT:
+            if val in self.data:
+                total = total + self.data[val]
+                break
+        total = total + self.normalize(self.current_debt())
         if USGAAP_LONGLEASE in self.data:
             total = total + self.data[USGAAP_LONGLEASE]
-        return str(total)
+        return total
 
     def op_income(self):
         if USGAAP_OPINCOME1 in self.data:
@@ -58,6 +69,14 @@ class gaapDB:
             ca = self.data[USGAAP_CURRENTASSETS]
             cl = self.data[USGAAP_CURRENTLIABILITES]
             return round(ca / cl, 2)
+        else:
+            return "--"
+
+    def working_capital(self):
+        if USGAAP_CURRENTASSETS in self.data and USGAAP_CURRENTLIABILITES in self.data:
+            ca = self.data[USGAAP_CURRENTASSETS]
+            cl = self.data[USGAAP_CURRENTLIABILITES]
+            return ca - cl
         else:
             return "--"
 
@@ -78,7 +97,7 @@ class gaapDB:
                 total = total + self.data[USGAAP_GOODWILL]
             if USGAAP_INTANGIBLE in self.data:
                 total = total + self.data[USGAAP_INTANGIBLE]
-            return str(total)
+            return total
         else:
             return "--"
 
@@ -95,11 +114,18 @@ class gaapDB:
         return "--"
 
     def operating_cf(self):
-        if USGAAP_OPCASHFLOW1 in self.data:
-            return self.data[USGAAP_OPCASHFLOW1]
-        if USGAAP_OPCASHFLOW2 in self.data:
-            return self.data[USGAAP_OPCASHFLOW2]
+        for val in USGAAP_OPCASHFLOW:
+            if val in self.data:
+                return self.data[val]
         return "--"
+
+    def excess_cash(self):
+        return (
+            self.normalize(self.operating_cf())
+            - self.normalize(self.capex())
+            - self.normalize(self.dividend())
+            - self.normalize(self.interest_expense())
+        )
 
     def capex(self):
         for val in USGAAP_CAPEX:
@@ -108,9 +134,7 @@ class gaapDB:
         return "--"
 
     def dividend(self):
-        if USGAAP_DIVIDEND1 in self.data:
-            return self.data[USGAAP_DIVIDEND1]
-        elif USGAAP_DIVIDEND2 in self.data:
-            return self.data[USGAAP_DIVIDEND2]
-        else:
-            return "--"
+        for val in USGAAP_DIVIDEND:
+            if val in self.data:
+                return self.data[val]
+        return "--"
