@@ -22,6 +22,7 @@ class fundamentals:
         "Dividend",
         "Working Capital",
         "Excess Cash",
+        "Share Count",
     ]
 
     def __init__(self, ticker, df: pd.DataFrame = None):
@@ -89,6 +90,10 @@ class fundamentals:
             sf.loc[:, "Excess Cash"] = sf["Excess Cash"].map("{:,d}".format)
         except:
             pass
+        try:
+            sf.loc[:, "Share Count"] = sf["Share Count"].map("{:,d}".format)
+        except:
+            pass
         return sf
 
     def insert(self, yy, parser):
@@ -110,6 +115,7 @@ class fundamentals:
             self.cols[14]: parser.gaap.dividend(),
             self.cols[15]: parser.gaap.working_capital(),
             self.cols[16]: parser.gaap.excess_cash(),
+            self.cols[17]: parser.dei.shares(),
         }
 
     def generateReport(self):

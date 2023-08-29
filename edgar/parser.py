@@ -3,6 +3,7 @@ import os
 import sys
 from bs4 import BeautifulSoup
 from edgar.gaap import gaapDB
+from edgar.dei import deiDB
 from edgar.report import fundamentals
 from edgar.tags import *
 
@@ -80,34 +81,22 @@ class xbrlParser:
             sys.exit("failed to find filing date")
         self.contextParser()
 
-    def gaapTags(self):
+    def tags(self):
         gaapData = dict([])
+        deiData = dict([])
         soup = BeautifulSoup(self.doc, "lxml")
         tags = soup.find_all()
         for tag in tags:
             if "us-gaap" in tag.name:
                 if self.getContextYear(tag) == self.filingDate:
                     gaapData[tag.name.lower()] = tag.text
+            elif "dei:" in tag.name:
+                deiData[tag.name.lower()] = tag.text
         self.gaap = gaapDB(gaapData)
+        self.dei = deiDB(deiData)
 
     def __init__(self, xbrlDoc):
         self.doc = xbrlDoc
         self.soup = BeautifulSoup(self.doc, "xml")
         self.initParser()
-        self.gaapTags()
-
-
-"""
-directory = "../data/"
-company = "IBM/"
-xbrlFiles = os.listdir("../data/" + company)
-file_name = "2014.xml"
-
-df = fundamentals()
-
-f = open(directory + company + file_name, "r+")
-xbrl_str = f.read()
-parser = xbrlParser(xbrl_str)
-df.insert(parser)
-df.print()
-"""
+        self.tags()

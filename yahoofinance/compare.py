@@ -64,9 +64,10 @@ class comparator:
     ]
 
     def __init__(self, tickers):
-        print("tickers: ", tickers.insert(0, "Metrics"))
+        cols = tickers.copy()
+        cols.insert(0, "Metrics")
         self.data = pd.DataFrame(
-            columns=tickers,
+            columns=cols,
         )
         yinfo = dict()
         for ticker in tickers:
@@ -79,7 +80,7 @@ class comparator:
                     num = yinfo[ticker].info[index]
                     row.append("{:,.2f}".format(float(num)))
                 except:
-                    pass
+                    row.append("--")
             self.data.loc[len(self.data)] = row
 
     def info(self):

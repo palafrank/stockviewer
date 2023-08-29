@@ -3,7 +3,7 @@ CONTEXT_REFERENCE1 = "contextref"
 CONTEXT_REFERENCE2 = "contextRef"
 
 # Stock Information
-DEI_STOCKCOUNT = "dei:EntityCommonStockSharesOutstanding"
+DEI_STOCKCOUNT = "dei:EntityCommonStockSharesOutstanding".lower()
 DEI_FILINGDATE = "dei:DocumentPeriodEndDate"
 
 # Income Statement
@@ -18,7 +18,14 @@ USGAAP_NETINCOME2 = "us-gaap:ProfitLoss".lower()
 USGAAP_NETINCOME3 = "us-gaap:NetIncomeLossAvailableToCommonStockholdersBasic".lower()
 USGAAP_NETINCOME = [USGAAP_NETINCOME1, USGAAP_NETINCOME2, USGAAP_NETINCOME3]
 
-USGAAP_INTERESTEXPENSE = "us-gaap:interestexpense".lower()
+USGAAP_INTERESTEXPENSE1 = "us-gaap:interestexpense".lower()
+USGAAP_INTERESTEXPENSE2 = "us-gaap:InterestPaidNet".lower()
+USGAAP_INTERESTEXPENSE3 = "us-gaap:InterestExpenseDebt".lower()
+USGAAP_INTERESTEXPENSE = [
+    USGAAP_INTERESTEXPENSE1,
+    USGAAP_INTERESTEXPENSE2,
+    USGAAP_INTERESTEXPENSE3,
+]
 USGAAP_OPINCOME1 = "us-gaap:OperatingIncomeLoss".lower()
 USGAAP_OPINCOME2 = "us-gaap:IncomeLossFromContinuingOperationsIncludingPortionAttributableToNoncontrollingInterest".lower()
 USGAAP_OPINCOME3 = "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest".lower()

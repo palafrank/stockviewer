@@ -102,10 +102,10 @@ class gaapDB:
             return "--"
 
     def interest_expense(self):
-        if USGAAP_INTERESTEXPENSE in self.data:
-            return self.data[USGAAP_INTERESTEXPENSE]
-        else:
-            return "--"
+        for val in USGAAP_INTERESTEXPENSE:
+            if val in self.data:
+                return self.data[val]
+        return "--"
 
     def net_income(self):
         for val in USGAAP_NETINCOME:
